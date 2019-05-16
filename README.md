@@ -14,7 +14,7 @@ This python script uses several libraries and send wishes to the numbers from th
 ```
 Xlrd for importing indivdual cells data from the excel file.
 
-Twilio to send the message to registered mobile number.
+* Twilio to send the message to registered mobile number.
 
 Mysql-Connector to execute SQL quries using python.
 
