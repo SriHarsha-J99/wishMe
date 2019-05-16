@@ -16,7 +16,7 @@ Xlrd for importing indivdual cells data from the excel file.
 
 * Twilio to send the message to registered mobile number.
 
-Mysql-Connector to execute SQL quries using python.
+* Mysql-Connector to execute SQL quries using python.
 
 Datetime to get present date and day.
 ```
