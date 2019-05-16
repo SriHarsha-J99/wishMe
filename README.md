@@ -1,10 +1,11 @@
-# wishMe
+**wishMe**
 This python script uses several libraries and send wishes to the numbers from the database.
 
 Libraries used in the script:
-	Twilio,
-	 Mysql-connector, 
-	datetime, xlrd.
+	-Twilio,
+	 -Mysql-connector, 
+	-datetime,
+	-xlrd.
 	
 Xlrd for importing indivdual cells data from the excel file.
 
