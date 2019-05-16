@@ -12,11 +12,11 @@ This python script uses several libraries and send wishes to the numbers from th
 ```	
 ### Roles of the libraries:
 ```
-Xlrd for importing indivdual cells data from the excel file.
+> Xlrd for importing indivdual cells data from the excel file.
 
-* Twilio to send the message to registered mobile number.
+> Twilio to send the message to registered mobile number.
 
-* Mysql-Connector to execute SQL quries using python.
+> Mysql-Connector to execute SQL quries using python.
 
-Datetime to get present date and day.
+> Datetime to get present date and day.
 ```
