@@ -4,6 +4,9 @@ import mysql.connector
 from io import StringIO
 import sys
 from twilio.rest import Client
+import urllib
+import urllib2
+import time;
 
 #Function that retrieves data from excel to a file for sql creation
 def xlstosql():
@@ -33,9 +36,7 @@ def xlstosql():
 #Compare the current Day with dom in DB	
 def getDOB():
 		mydb=mysql.connector.connect(host='localhost',database='kwa',user='root',password='Root@846');
-		a=datetime.datetime.now()
-		now="'"+a.strftime("%d")+a.strftime("%B")+"'"
-		query="select name,phno from master where dob="+now
+		query="select name,phno from master where dob="+getDay()
 		c=mydb.cursor()
 		c.execute(query)
 		op=c.fetchall()
@@ -46,14 +47,13 @@ def getDOB():
 				name=op[i][0]
 				phno=op[i][1]
 				msg=wishM(name)
-				twilio(msg,phno)
+				print(msg) 	             
+				#twilio(msg,phno)
 
 #Compare the current Day with dom in DB	
 def getDOM():
 		mydb=mysql.connector.connect(host='localhost',database='kwa',user='root',password='Root@846');
-		a=datetime.datetime.now()
-		now="'"+a.strftime("%d")+a.strftime("%B")+"'"
-		query="select name,phno from master where dom="+now+";"
+		query="select name,phno from master where dom ="+getDay()
 		c=mydb.cursor()
 		c.execute(query)
 		op=c.fetchall()
@@ -63,8 +63,12 @@ def getDOM():
 			for i in range(len(op)):
 				name=op[i][0]
 				phno=op[i][1]
+				print(name)
+				print(phno)
 				msg=wishM(name)
-				twilio(msg,phno)
+				msg91(msg,phno)
+				time.sleep(12)
+				
 		
 #Retruns the phone number
 def num(phno):
@@ -73,18 +77,42 @@ def num(phno):
 #To get currrent day and month	
 def getDay():
 	a=datetime.datetime.now()
-	now="'"+a.strftime("%B")+a.strftime("%d")+"'"
-	return (now)
+	now="'"+a.strftime("%d")+a.strftime("%B")+"'"
+	
+	return now
 
-#Using twilio API for sending msg to phno
-def twilio(msg,phno):
-	account_sid = 'ACd5f6cfbf8a580795b6d39e541896cac8'
-	auth_token = '8133fda061b31fe08e075cf11f618fee'
-	client = Client(account_sid, auth_token)
-	message = client.messages.create(
-	to="+918688888933",from_='+12013315355',body=msg)
-	print(message.sid)
-
+def msg91(msg,phno):
+	authkey = "277581Aezl0gNUW2j5ce2dfb7" # Your authentication key.
+	mobiles = phno # Multiple mobiles numbers separated by comma.
+	message = msg # Your message to send.
+	sender = "KWAJNB" # Sender ID,While using route4 sender id should be 6 characters long.
+	route = "4" # Define route
+	values = {
+          'authkey' : authkey,
+          'mobiles' : mobiles,
+          'message' : message,
+          'sender' : sender,
+          'route' : route
+          }
+  	values1 = {
+          'authkey' : authkey,
+          'mobiles' : '9248044456',
+          'message' : message,
+          'sender' : sender,
+          'route' : route
+          }      
+	url = "http://api.msg91.com/api/sendhttp.php" # API URL
+	postdata = urllib.urlencode(values) # URL encoding the data here.
+	req = urllib2.Request(url, postdata)
+	response = urllib2.urlopen(req)
+	output = response.read() # Get Response
+	print(output)
+	time.sleep(12)
+	postdata1 = urllib.urlencode(values1) # URL encoding the data here.
+	req1 = urllib2.Request(url, postdata1)
+	response1 = urllib2.urlopen(req1)
+	output1 = response.read() # Get Response
+	print(output1)
 
 #Sends the Marriage day message with the desired name
 def wishM(name):
